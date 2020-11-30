@@ -1,0 +1,265 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Epic #3/13 API
+servers:
+  - url: 'http://cusports.com/notifications'
+
+security:
+  - AdminAuth:
+    - SaleNotification
+    - cartExpirationNotification
+  - WHUserAuth:
+    - packageShippedEmail
+    - packageDelayedEmail
+  - CustomerAuth:
+    - accountActivationEmail
+
+
+paths:
+# Warehouse Alert APIs
+  /warehouse/packageShippedEmail:
+    post:
+      summary: 'test: Send package shipped update email'
+      operationId: packageShippedEmail
+      tags:
+        - user
+      parameters:
+        - name: custName
+          in: query
+          description: Name of customer
+          required: true
+          schema:
+            type: string
+        - name: custEmail
+          in: query
+          description: Customer's email
+          required: true
+          schema:
+            type: string
+            format: email
+        - name: orderNumber
+          in: query
+          description: Order number
+          required: true
+          schema:
+            type: integer
+            format: uint32
+      responses:
+        '200':
+          description: 'Response from gmail'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /warehouse/packageDelayedEmail:
+    post:
+      summary: 'test: Send package delayed update email'
+      operationId: packageDelayedEmail
+      tags:
+        - user
+      parameters:
+        - name: custName
+          in: query
+          description: Name of customer
+          required: true
+          schema:
+            type: string
+        - name: custEmail
+          in: query
+          description: Customer's email
+          required: true
+          schema:
+            type: string
+            format: email
+        - name: orderNumber
+          in: query
+          description: Order number
+          required: true
+          schema:
+            type: integer
+            format: uint32
+        - name: newShipDate
+          in: query
+          description: New estimated ship date (if not included, sentence in email will be omitted)
+          required: false
+          schema:
+              type: string
+              format: date
+      responses:
+        '200':
+          description: 'Response from gmail'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+# Account activation APIs
+  /activation/accountActivationEmail:
+    post:
+      summary: 'test: Send account activation email'
+      operationId: accountActivationEmail
+      tags:
+        - user
+      parameters:
+        - name: custName
+          in: query
+          description: Name of customer
+          required: true
+          schema:
+            type: string
+        - name: custEmail
+          in: query
+          description: Customer's email
+          required: true
+          schema:
+            type: string
+            format: email
+        - name: activationURLcode
+          in: query
+          description: custom encrypted activation from format as in cusports.com/activation/[activationURLcode]
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Response from gmail'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+# Cart notifications
+  /cart/Expire:
+    post:
+      summary: 'test: Send a cart notification to customers whose cart is about to expire'
+      operationId: cartExpirationNotification
+      tags:
+        - cart
+      parameters:
+        - name: custName
+          in: query
+          description: Name of customer
+          required: true
+          schema:
+            type: string
+        - name: custEmail
+          in: query
+          description: Customer's email
+          required: true
+          schema:
+            type: string
+            format: email
+        - name: cartNumber
+          in: query
+          description: Cart number
+          required: true
+          schema:
+            type: integer
+            format: uint32 
+      responses:
+        '200':
+          description: 'Response from gmail'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Error'
+
+# Promotion notifications
+  /promotion/SaleNotification:
+    post:
+      summary: 'test: Send a sale notification to all customers on notification list'
+      operationId: saleNotification
+      tags:
+        - marketing
+
+      requestBody:
+        description: Optional formatted email body (css formatting, variable matching in {})
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: object
+                  properties:
+                    subject:
+                      type: string
+                    body:
+                      description: formatted body
+                      type: string
+              
+      responses:
+        '200':
+          description: OK
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Error'
+
+components:
+  securitySchemes:
+    AdminAuth:
+      type: http
+      scheme: basic
+    WHUserAuth:
+      type: http
+      scheme: basic
+    CustomerAuth:
+      type: http
+      scheme: basic
+
+  schemas:
+    Email:
+      type: object
+      required:
+        - to
+        - subject
+        - body
+      properties:
+        to:
+          type: string
+        subject:
+          type: string
+        body:
+          type: string
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
