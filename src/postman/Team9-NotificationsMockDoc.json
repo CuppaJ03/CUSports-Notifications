@@ -1,0 +1,413 @@
+{
+  "info": {
+    "_postman_id": "6d45d955-598c-40c0-ba46-46434f6298b3",
+    "name": "Sprint 3 Mock",
+    "description": "# Introduction\n    Epic #1 - As a customer, I can receive notifications about if my cart is about to expire, to know when my cart will expire.\n    Epic #2 - As a customer, I can receive notifications on ongoing sales, to know about any sales on products.\n\n# Overview\n    Epic #1 - the name should be + across everywhere customer name is required.\n    Epic #2 - Make sure the method and the request path are correct\n\n# Error Codes\n    The user should expect the error codes to based on Gmail's error \n    codes in the format {\"code\": error code, \"message\": error message}",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Requests for Other Sprints",
+      "item": [
+        {
+          "name": "test: Send package shipped update email",
+          "_postman_id": "8ddc6b95-7471-4223-860b-71120ba958f8",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/warehouse/packageShippedEmail?custName=nulla commodo pariatur i&custEmail=ViX0VcjAQTv@wHPfmVsagwTLXWYKzdwcRlpC.za&orderNumber=94875420",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "warehouse",
+                "packageShippedEmail"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Name of customer",
+                  "key": "custName",
+                  "value": "nulla commodo pariatur i"
+                },
+                {
+                  "description": "(Required) Customer&amp;amp;amp;#39;s email",
+                  "key": "custEmail",
+                  "value": "ViX0VcjAQTv@wHPfmVsagwTLXWYKzdwcRlpC.za"
+                },
+                {
+                  "description": "(Required) Order number",
+                  "key": "orderNumber",
+                  "value": "94875420"
+                }
+              ]
+            },
+            "description": "# Developer Notes\n    replace all spaces in customer name with a +\n\n# Authentication\n    The preferred way to use this is by the warehouse workers after they have sent the package. \n\n# Error Codes\n    The user should expect the error codes to based on Gmail's error \n    codes in the format {\"code\": error code, \"message\": error message}"
+          },
+          "response": []
+        },
+        {
+          "name": "test: Send package delayed update email",
+          "_postman_id": "cae367b2-462f-4f7f-ac57-61817aa32ea3",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/warehouse/packageDelayedEmail?custName=nulla commodo pariatur i&custEmail=ViX0VcjAQTv@wHPfmVsagwTLXWYKzdwcRlpC.za&orderNumber=94875420&newShipDate=1975-03-09",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "warehouse",
+                "packageDelayedEmail"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Name of customer",
+                  "key": "custName",
+                  "value": "nulla commodo pariatur i"
+                },
+                {
+                  "description": "(Required) Customer&amp;amp;amp;#39;s email",
+                  "key": "custEmail",
+                  "value": "ViX0VcjAQTv@wHPfmVsagwTLXWYKzdwcRlpC.za"
+                },
+                {
+                  "description": "(Required) Order number",
+                  "key": "orderNumber",
+                  "value": "94875420"
+                },
+                {
+                  "description": "New estimated ship date (if not included, sentence in email will be omitted)",
+                  "key": "newShipDate",
+                  "value": "1975-03-09"
+                }
+              ]
+            },
+            "description": "# Developer Notes\n    Replace all spaces in customer name with a +. \n    If there is no ship date it will send a form email that does Not mention the new date.\n\n# Authentication\n    The preferred way to use this is by the warehouse workers when an issue has arisen in shipping.\n\n# Error Codes\n    The user should expect the error codes to based on Gmail's error \n    codes in the format {\"code\": error code, \"message\": error message}"
+          },
+          "response": []
+        },
+        {
+          "name": "test: Send account activation email",
+          "_postman_id": "a7104a4e-895d-4a54-87b0-65108aa06f51",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activation/accountActivationEmail?custName=nulla commodo pariatur i&custEmail=ViX0VcjAQTv@wHPfmVsagwTLXWYKzdwcRlpC.za&activationURLcode=nulla commodo pariatur i",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activation",
+                "accountActivationEmail"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Name of customer",
+                  "key": "custName",
+                  "value": "nulla commodo pariatur i"
+                },
+                {
+                  "description": "(Required) Customer&amp;amp;amp;#39;s email",
+                  "key": "custEmail",
+                  "value": "ViX0VcjAQTv@wHPfmVsagwTLXWYKzdwcRlpC.za"
+                },
+                {
+                  "description": "(Required) custom encrypted activation from format as in cusports.com/activation/[activationURLcode]",
+                  "key": "activationURLcode",
+                  "value": "nulla commodo pariatur i"
+                }
+              ]
+            },
+            "description": "# Developer Notes\n    Replace all spaces in customer name with a +. \n    Activation URL should be set up before the link is sent.\n    Activation URL should follow format: https://cusports.com/[activationURLcode].\n\n# Authentication\n    The preferred way to use this is by the Accounts API via direct call.\n\n# Error Codes\n    The user should expect the error codes to based on Gmail's error \n    codes in the format {\"code\": error code, \"message\": error message}"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "ad1b5fc4-93b8-46d1-8f9f-9b2f5e80a937",
+      "description": "Requests for epics other than Cart Expiration Notification",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "f4007917-aced-4bf5-864f-fb23d6379e21",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "5747e1dd-870c-46c6-a75d-efee59870e04",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "test: Send a cart notification to customers whose cart is about to expire",
+      "_postman_id": "866dde43-6918-4e95-9f6e-e1af7815915a",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cart/Expire?custName=John+Smith&custEmail=johnsmith@gmail.com&cartNumber=94875420",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cart",
+            "Expire"
+          ],
+          "query": [
+            {
+              "description": "(Required) Name of customer",
+              "key": "custName",
+              "value": "John+Smith"
+            },
+            {
+              "description": "(Required) Customer&amp;amp;amp;#39;s email",
+              "key": "custEmail",
+              "value": "johnsmith@gmail.com"
+            },
+            {
+              "description": "(Required) Cart number",
+              "key": "cartNumber",
+              "value": "94875420"
+            }
+          ]
+        },
+        "description": "# Developer Notes\n    Replace all spaces in customer name with a +. \n\n# Authentication\n    The preferred way to use this API is for it to be called by the Cart API.\n\n# Error Codes\n    The user should expect the error codes to based on Gmail's error \n    codes in the format {\"code\": error code, \"message\": error message}"
+      },
+      "response": [
+        {
+          "id": "94b1c8e1-fa71-47d7-b25f-e8a6776100b2",
+          "name": "Unexpected Error",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cart/Expire?custName=&custEmail=&cartNumber=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cart",
+                "Expire"
+              ],
+              "query": [
+                {
+                  "key": "custName",
+                  "value": "",
+                  "description": "(Required) Name of customer"
+                },
+                {
+                  "key": "custEmail",
+                  "value": "",
+                  "description": "(Required) Customer&amp;amp;amp;#39;s email"
+                },
+                {
+                  "key": "cartNumber",
+                  "value": "",
+                  "description": "(Required) Cart number"
+                }
+              ]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n \"Error\": {\n  \"code\": 500,\n  \"message\": \"Encountered unexpected error.\"\n },\n}"
+        },
+        {
+          "id": "775af7f6-99b1-4268-bea5-6e9f671f7877",
+          "name": "Successful Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cart/Expire?custName=John+Smith&custEmail=johnsmith@gmail.com&cartNumber=94875420",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cart",
+                "Expire"
+              ],
+              "query": [
+                {
+                  "key": "custName",
+                  "value": "John+Smith",
+                  "description": "(Required) Name of customer"
+                },
+                {
+                  "key": "custEmail",
+                  "value": "johnsmith@gmail.com",
+                  "description": "(Required) Customer&amp;amp;amp;#39;s email"
+                },
+                {
+                  "key": "cartNumber",
+                  "value": "94875420",
+                  "description": "(Required) Cart number"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "description": {
+                "content": "",
+                "type": "text/plain"
+              },
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"to\": \"johnsmith@gmail.com\",\n    \"subject\": \"Your cart is about to expire!\",\n    \"body\": \"John Smith, it seems your cart is about to expire! Please check out as soon as possible.\"\n}\n"
+        }
+      ]
+    },
+    {
+      "name": "test: Send a sale notification to all customers on notification list",
+      "_postman_id": "1197f597-a429-446d-b09f-6e0ba025f0de",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": {\n        \"subject\": \"Don't miss this sale!\",\n        \"body\": \"<html><head><style>.colored: {blue;} #body {font-size: 14px;}</style></head><body><div id='body'><p>{custName}!</p><p>You do NOT want to miss this sale on your favorite Clemson Tigers' apparel</p><ul><li>BOGO on player jerseys</li><li>25% off Bring your own guts shirts</li></ul><p>Order now before this deal runs out!!!</p></div></body></html>\"\n    }\n}",
+          "options": {
+            "raw": {}
+          }
+        },
+        "url": "{{baseUrl}}/promotion/SaleNotification/",
+        "description": "# Overview\n    There should be a GUI that allows marketing to edit an email and converts that into a CSS string that this function can work with.\n\n# Developer Notes\n    This function gets a list from accounts of users that want sale updates.\n    The body of the email in the body is expected to be CSS formatted HTML. \n\n# Authentication\n    The preferred way to use this is that it is called by Promotions when a new promotion is added.\n\n# Error Codes\n    The user should expect the error codes to based on Gmail's error \n    codes in the format {\"code\": error code, \"message\": error message}"
+      },
+      "response": [
+        {
+          "id": "01c0a7de-7128-4709-8179-6cf7131d75ab",
+          "name": "Unexpected error",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Added as a part of security scheme: basic",
+                "key": "Authorization",
+                "value": "Basic <credentials>"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {\n        \"subject\": \"Don't miss this sale!\",\n        \"body\": \"<html><head><style>.colored: {blue;} #body {font-size: 14px;}</style></head><body><div id='body'><p>{custName}!</p><p>You do NOT want to miss this sale on your favorite Clemson Tigers' apparel</p><ul><li>BOGO on player jerseys</li><li>25% off Bring your own guts shirts</li></ul><p>Order now before this deal runs out!!!</p></div></body></html>\"\n    }\n}"
+            },
+            "url": "{{baseUrl}}/promotion/SaleNotification/error"
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\r\n    \"code\": 500,\r\n    \"message\": \"Internal Server Error\"\r\n}"
+        },
+        {
+          "id": "fe68d2ad-787b-4223-9212-30ad3ca236f1",
+          "name": "Send Sale Notification success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Added as a part of security scheme: basic",
+                "key": "Authorization",
+                "value": "Basic <credentials>"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": {\n        \"subject\": \"Don't miss this sale!\",\n        \"body\": \"<html><head><style>.colored: {blue;} #body {font-size: 14px;}</style></head><body><div id='body'><p>{custName}!</p><p>You do NOT want to miss this sale on your favorite Clemson Tigers' apparel</p><ul><li>BOGO on player jerseys</li><li>25% off Bring your own guts shirts</li></ul><p>Order now before this deal runs out!!!</p></div></body></html>\"\n    }\n}"
+            },
+            "url": "{{baseUrl}}/promotion/SaleNotification"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{}"
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "ecab4763-a46c-4ae9-bb46-9819a727d452",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "9e75202a-b2a2-4ffb-906c-409e0ba4f67f",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "15403666-ee13-440e-90fe-82d2ebebba4d",
+      "key": "baseUrl",
+      "value": "http://cusports.com/notifications",
+      "type": "string"
+    }
+  ]
+}
